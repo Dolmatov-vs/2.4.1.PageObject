@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 @Data
 public class TransferMoney {
-    private SelenideElement transfer = $("[class='heading heading_size_xl heading_theme_alfa-on-white']");
+    private SelenideElement transfer = $("h1.heading_theme_alfa-on-white");
     private SelenideElement beneficiaryCard = $("[data-test-id=to] input");
     private SelenideElement summa = $("[data-test-id=amount] input");
     private SelenideElement whence = $("[data-test-id=from] input");
@@ -26,8 +26,8 @@ public class TransferMoney {
     public void checkBalance(){
         val balance = new PersonalArea();
         if (writeOffAmount > balance.getSecondCardBalance()) {
-            System.out.println("Недостаточно средств на счету");
-            titleError.shouldHave(visible, text("Недостаточно средств на счету"));
+            System.out.println("Недостаточно средств для списания");
+            titleError.shouldHave(visible, text("Недостаточно средств для списания"));
         }
     }
 
