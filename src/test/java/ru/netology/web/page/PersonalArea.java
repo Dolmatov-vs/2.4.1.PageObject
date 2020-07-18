@@ -6,7 +6,6 @@ import lombok.val;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Data
 public class PersonalArea {

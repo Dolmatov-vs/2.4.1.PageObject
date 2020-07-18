@@ -20,7 +20,7 @@ public class TransferMoney {
 
 
     public TransferMoney() {
-//        transfer.shouldHave(visible, text("Пополнение карты"));
+        transfer.shouldHave(visible, text("Пополнение карты"));
     }
 
     public void checkBalance(){
