@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import ru.netology.web.data.UserData;
 import ru.netology.web.page.LoginPage;
 import ru.netology.web.page.PersonalArea;
+import ru.netology.web.page.TransferMoney;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -58,6 +59,15 @@ public class MoneyTransferTest {
     @Test
     void shouldErrorRechargeCard2IfCardWriteOffsDoesNotExist() {
         val personalArea = new PersonalArea();
-        personalArea.topUpCard0001().card1WithCard3();
+        personalArea.topUpCard0002().card2WithCard3();
+    }
+
+    @Test
+    void shouldErrorInsufficientFundsToWriteOffOnCard2() {
+        val personalArea = new PersonalArea();
+        val transfer = new TransferMoney();
+        personalArea.topUpCard0001();
+        transfer.setWriteOffAmount(personalArea.getBalanceSecondCard()+1);
+        transfer.card1WithCard2();
     }
 }

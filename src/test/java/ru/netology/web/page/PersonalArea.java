@@ -21,7 +21,7 @@ public class PersonalArea {
     private final String balanceFinish = " р.";
 
     public PersonalArea() {
-        youCards.shouldHave(text("Ваши карты"));
+        youCards.shouldHave(visible, text("Ваши карты"));
     }
 
     public int getFirstCardBalance() {
