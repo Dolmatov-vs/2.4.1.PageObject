@@ -13,26 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class MoneyTransferTest {
 
-//    public void balanceCheck(){
-//        val transferMoney = new TransferMoney();
-//        val balance = new PersonalArea();
-//        int writeOffAmount = transferMoney.getWriteOffAmount();
-//        int newBalanceFirstCard = balance.getFirstCardBalance();
-//        int newBalanceSecondCard = balance.getSecondCardBalance();
-//
-//        if (balance.getBalanceFirstCard() < newBalanceFirstCard)
-//            assertEquals(balance.getBalanceFirstCard() + writeOffAmount, newBalanceFirstCard);
-//        if (balance.getBalanceFirstCard() > newBalanceFirstCard)
-//            assertEquals(balance.getBalanceFirstCard() - writeOffAmount, newBalanceFirstCard);
-//        else return;
-//
-//        if (balance.getSecondCardBalance() < newBalanceSecondCard)
-//            assertEquals(balance.getSecondCardBalance() + writeOffAmount, newBalanceSecondCard);
-//        if (balance.getSecondCardBalance() > newBalanceSecondCard)
-//            assertEquals(balance.getSecondCardBalance() - writeOffAmount, newBalanceSecondCard);
-//        else return;
-//    }
-
     @BeforeEach
     void validLogin(){
         open("http://localhost:9999");
