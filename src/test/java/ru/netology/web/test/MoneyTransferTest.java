@@ -46,29 +46,32 @@ public class MoneyTransferTest {
     @Test
     void shouldSuccessfulTransferFromCard1ToCard2() {
         val personalArea = new PersonalArea();
-        personalArea.topUpCard0001().card1WithCard2();
-//        balanceCheck();
+        personalArea.topUpCard0001();
+        val transferMoney = new TransferMoney();
+        transferMoney.card1WithCard2();
+        int writeOffAmount = transferMoney.getWriteOffAmount();
+        int newBalanceFirstCard = personalArea.getFirstCardBalance();
+        int newBalanceSecondCard = personalArea.getSecondCardBalance();
+        assertEquals(personalArea.getBalanceFirstCard() + writeOffAmount, newBalanceFirstCard);
+        assertEquals(personalArea.getBalanceSecondCard() - writeOffAmount, newBalanceSecondCard);
     }
 
     @Test
     void shouldSuccessfulTransferFromCard2ToCard1() {
         val personalArea = new PersonalArea();
         personalArea.topUpCard0002().card2WithCard1();
-//        balanceCheck();
     }
 
     @Test
     void shouldSuccessfulTransferFromCard1ToCard1() {
         val personalArea = new PersonalArea();
         personalArea.topUpCard0001().card1WithCard1();
-//        balanceCheck();
     }
 
     @Test
     void shouldSuccessfulTransferFromCard2ToCard2() {
         val personalArea = new PersonalArea();
         personalArea.topUpCard0002().card2WithCard2();
-//        balanceCheck();
     }
 
     @Test
