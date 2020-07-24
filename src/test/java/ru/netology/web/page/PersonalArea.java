@@ -16,6 +16,9 @@ public class PersonalArea {
     private int balanceFirstCard = getFirstCardBalance();
     private int balanceSecondCard = getSecondCardBalance();
 
+    private int newBalanceFirstCard;
+    private int newBalanceSecondCard;
+
     private final String balanceStart = "баланс: ";
     private final String balanceFinish = " р.";
 

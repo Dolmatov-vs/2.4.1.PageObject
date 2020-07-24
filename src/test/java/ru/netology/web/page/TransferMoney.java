@@ -2,7 +2,7 @@ package ru.netology.web.page;
 
 import com.codeborne.selenide.SelenideElement;
 import lombok.Data;
-import lombok.val;
+import org.junit.jupiter.api.Assertions;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -16,70 +16,28 @@ public class TransferMoney {
     private SelenideElement confirm = $("[data-test-id='action-transfer']");
     private SelenideElement titleError = $("[class='notification__title']");
 
-    public int writeOffAmount = 500;
-
 
     public TransferMoney() {
         transfer.shouldHave(visible, text("Пополнение карты"));
     }
 
-    public void checkBalance(){
-        val balance = new PersonalArea();
-        if (writeOffAmount > balance.getSecondCardBalance()) {
-            System.out.println("Недостаточно средств для списания");
-            titleError.shouldHave(visible, text("Недостаточно средств для списания"));
-        }
+
+    public void setAmount(int amount){
+        summa.setValue(Integer.toString(amount));
     }
 
-    public PersonalArea card1WithCard2() {
-        beneficiaryCard.attr("**** **** **** 0001");
-        summa.setValue(Integer.toString(writeOffAmount));
-        whence.setValue("5559000000000002");
-        confirm.click();
-        checkBalance();
-        return new PersonalArea();
+    public void setFromWhere(String card){
+        whence.setValue(card);
     }
 
-    public PersonalArea card1WithCard1() {
-        beneficiaryCard.attr("**** **** **** 0001");
-        summa.setValue(Integer.toString(writeOffAmount));
-        whence.setValue("5559000000000001");
-        confirm.click();
-        checkBalance();
-        return new PersonalArea();
+    public void checkCardRecipient(String valueCard){
+        Assertions.assertEquals(valueCard, beneficiaryCard.getValue());
     }
 
-    public void card1WithCard3() {
-        beneficiaryCard.attr("**** **** **** 0001");
-        summa.setValue(Integer.toString(writeOffAmount));
-        whence.setValue("5559000000000003");
+    public void transfer (String valueCard, int amount, String card){
+        checkCardRecipient(valueCard);
+        setAmount(amount);
+        setFromWhere(card);
         confirm.click();
-        titleError.shouldHave(visible, text("Ошибка"));
-    }
-
-    public PersonalArea card2WithCard1() {
-        beneficiaryCard.attr("**** **** **** 0002");
-        summa.setValue(Integer.toString(writeOffAmount));
-        whence.setValue("5559000000000001");
-        confirm.click();
-        checkBalance();
-        return new PersonalArea();
-    }
-
-    public PersonalArea card2WithCard2() {
-        beneficiaryCard.attr("**** **** **** 0002");
-        summa.setValue(Integer.toString(writeOffAmount));
-        whence.setValue("5559000000000002");
-        confirm.click();
-        checkBalance();
-        return new PersonalArea();
-    }
-
-    public void card2WithCard3() {
-        beneficiaryCard.attr("**** **** **** 0002");
-        summa.setValue(Integer.toString(writeOffAmount));
-        whence.setValue("5559000000000003");
-        confirm.click();
-        titleError.shouldHave(visible, text("Ошибка"));
     }
 }
