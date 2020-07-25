@@ -15,15 +15,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class MoneyTransferTest {
     private int amount = 500;
-    private String valueCardFirst = "**** **** **** 0001";
-    private String valueCardSecond = "**** **** **** 0002";
-    CardInfo cardInfo = new CardInfo();
+
 
         public void checkBalance(){
         val balance = new PersonalArea();
         if (amount > balance.getSecondCardBalance()) {
             val transferMoney = new TransferMoney();
-            System.out.println("Недостаточно средств для списания");
             transferMoney.getTitleError().shouldHave(visible, text("Недостаточно средств для списания"));
         }
     }
@@ -44,7 +41,7 @@ public class MoneyTransferTest {
         val personalArea = new PersonalArea();
         personalArea.topUpCard0001();
         val transferMoney = new TransferMoney();
-        transferMoney.transfer(valueCardFirst, amount, cardInfo.getSecondCard());
+        transferMoney.transfer(CardInfo.getFirstCard(), amount, CardInfo.getSecondCard());
         checkBalance();
         int newBalanceFirstCard = personalArea.getFirstCardBalance();
         int newBalanceSecondCard = personalArea.getSecondCardBalance();
@@ -59,7 +56,7 @@ public class MoneyTransferTest {
         val personalArea = new PersonalArea();
         personalArea.topUpCard0002();
         val transferMoney = new TransferMoney();
-        transferMoney.transfer(valueCardSecond, amount, cardInfo.getFirstCard());
+        transferMoney.transfer(CardInfo.getSecondCard(), amount, CardInfo.getFirstCard());
         checkBalance();
         int newBalanceFirstCard = personalArea.getFirstCardBalance();
         int newBalanceSecondCard = personalArea.getSecondCardBalance();
@@ -73,7 +70,7 @@ public class MoneyTransferTest {
         val personalArea = new PersonalArea();
         personalArea.topUpCard0001();
         val transferMoney = new TransferMoney();
-        transferMoney.transfer(valueCardFirst, amount, cardInfo.getFirstCard());
+        transferMoney.transfer(CardInfo.getFirstCard(), amount, CardInfo.getFirstCard());
         checkBalance();
         int newBalanceFirstCard = personalArea.getFirstCardBalance();
         int newBalanceSecondCard = personalArea.getSecondCardBalance();
@@ -87,7 +84,7 @@ public class MoneyTransferTest {
         val personalArea = new PersonalArea();
         personalArea.topUpCard0002();
         val transferMoney = new TransferMoney();
-        transferMoney.transfer(valueCardSecond, amount, cardInfo.getSecondCard());
+        transferMoney.transfer(CardInfo.getSecondCard(), amount, CardInfo.getSecondCard());
         checkBalance();
         int newBalanceFirstCard = personalArea.getFirstCardBalance();
         int newBalanceSecondCard = personalArea.getSecondCardBalance();
@@ -101,28 +98,29 @@ public class MoneyTransferTest {
         val personalArea = new PersonalArea();
         personalArea.topUpCard0001();
         val transferMoney = new TransferMoney();
-        transferMoney.transfer(valueCardFirst, amount, cardInfo.getThirdCard());
+        val thirdCard = CardInfo.NonExistentCard;
+        transferMoney.transfer(CardInfo.getFirstCard(), amount, new CardInfo.getNonExistentCard());
         transferMoney.getTitleError().shouldHave(visible, text("Ошибка"));
     }
 
-    @Test
-    @Order(6)
-    void shouldErrorRechargeCard2IfCardWriteOffsDoesNotExist() {
-
-        val personalArea = new PersonalArea();
-        personalArea.topUpCard0002();
-        val transferMoney = new TransferMoney();
-        transferMoney.transfer(valueCardSecond, amount, cardInfo.getThirdCard());
-        transferMoney.getTitleError().shouldHave(visible, text("Ошибка"));
-    }
-
+//    @Test
+//    @Order(6)
+//    void shouldErrorRechargeCard2IfCardWriteOffsDoesNotExist() {
+//
+//        val personalArea = new PersonalArea();
+//        personalArea.topUpCard0002();
+//        val transferMoney = new TransferMoney();
+//        transferMoney.transfer(CardInfo.getSecondCard(), amount, );
+//        transferMoney.getTitleError().shouldHave(visible, text("Ошибка"));
+//    }
+//
     @Test
     @Order(7)
     void shouldErrorInsufficientFundsToWriteOffOnCard2() {
         val personalArea = new PersonalArea();
         personalArea.topUpCard0001();
         val transferMoney = new TransferMoney();
-        transferMoney.transfer(valueCardFirst, personalArea.getBalanceSecondCard()+1, cardInfo.getSecondCard());
+        transferMoney.transfer(CardInfo.getFirstCard(), personalArea.getBalanceSecondCard()+1, CardInfo.getSecondCard());
         checkBalance();
     }
 }

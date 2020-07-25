@@ -3,6 +3,7 @@ package ru.netology.web.page;
 import com.codeborne.selenide.SelenideElement;
 import lombok.Data;
 import org.junit.jupiter.api.Assertions;
+import ru.netology.web.data.CardInfo;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -26,16 +27,16 @@ public class TransferMoney {
         summa.setValue(Integer.toString(amount));
     }
 
-    public void setFromWhere(String card){
-        whence.setValue(card);
+    public void setFromWhere(CardInfo.DataCards card){
+        whence.setValue(card.getCards());
     }
 
-    public void checkCardRecipient(String valueCard){
-        Assertions.assertEquals(valueCard, beneficiaryCard.getValue());
+    public void checkCardRecipient(CardInfo.DataCards value){
+        Assertions.assertEquals(value.getValue(), beneficiaryCard.getValue());
     }
 
-    public void transfer (String valueCard, int amount, String card){
-        checkCardRecipient(valueCard);
+    public void transfer (CardInfo.DataCards value, int amount, CardInfo.DataCards card){
+        checkCardRecipient(value);
         setAmount(amount);
         setFromWhere(card);
         confirm.click();
