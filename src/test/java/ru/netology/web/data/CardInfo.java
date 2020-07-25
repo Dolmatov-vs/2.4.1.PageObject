@@ -21,12 +21,8 @@ public class CardInfo {
         return new DataCards("5559000000000002", "**** **** **** 0002");
     }
 
-    @Value
-    public static class NonExistentCard {
-        private String thirdCard;
-    }
-    public static NonExistentCard getNonExistentCard (DataCards thirdCard){
-        return new NonExistentCard("5559000000000003");
+    public static DataCards getNonExistentCard (){
+        return new DataCards("5559000000000003", null);
     }
 
 

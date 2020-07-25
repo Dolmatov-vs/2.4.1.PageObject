@@ -47,7 +47,6 @@ public class MoneyTransferTest {
         int newBalanceSecondCard = personalArea.getSecondCardBalance();
         assertEquals(personalArea.getBalanceFirstCard() + amount, newBalanceFirstCard);
         assertEquals(personalArea.getBalanceSecondCard() - amount, newBalanceSecondCard);
-
     }
 
     @Test
@@ -98,22 +97,21 @@ public class MoneyTransferTest {
         val personalArea = new PersonalArea();
         personalArea.topUpCard0001();
         val transferMoney = new TransferMoney();
-        val thirdCard = CardInfo.NonExistentCard;
-        transferMoney.transfer(CardInfo.getFirstCard(), amount, new CardInfo.getNonExistentCard());
+        transferMoney.transfer(CardInfo.getFirstCard(), amount, CardInfo.getNonExistentCard());
         transferMoney.getTitleError().shouldHave(visible, text("Ошибка"));
     }
 
-//    @Test
-//    @Order(6)
-//    void shouldErrorRechargeCard2IfCardWriteOffsDoesNotExist() {
-//
-//        val personalArea = new PersonalArea();
-//        personalArea.topUpCard0002();
-//        val transferMoney = new TransferMoney();
-//        transferMoney.transfer(CardInfo.getSecondCard(), amount, );
-//        transferMoney.getTitleError().shouldHave(visible, text("Ошибка"));
-//    }
-//
+    @Test
+    @Order(6)
+    void shouldErrorRechargeCard2IfCardWriteOffsDoesNotExist() {
+
+        val personalArea = new PersonalArea();
+        personalArea.topUpCard0002();
+        val transferMoney = new TransferMoney();
+        transferMoney.transfer(CardInfo.getSecondCard(), amount, CardInfo.getNonExistentCard());
+        transferMoney.getTitleError().shouldHave(visible, text("Ошибка"));
+    }
+
     @Test
     @Order(7)
     void shouldErrorInsufficientFundsToWriteOffOnCard2() {
